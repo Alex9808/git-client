@@ -12,10 +12,12 @@ const styles = theme => ({});
 class BranchView extends Component {
 
     componentDidMount() {
-
+        this.loadBranch();
     }
 
     loadBranch = () => {
+        let {location, fetchCommits} = this.props;
+        fetchCommits(location.search.split('=')[1]);
     }
 
     render() {
