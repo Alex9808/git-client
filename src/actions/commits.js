@@ -4,8 +4,7 @@ export const fetchCommits = (ref) => ({
     type: FETCH_BRANCH,
     request: {
         op: 'get',
-        path: '/api/commits',
-        params: {ref: ref}
+        path: `/api/commits?ref=${ref}`,
     }
 });
 

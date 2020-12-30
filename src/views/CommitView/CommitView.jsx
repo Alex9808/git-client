@@ -4,6 +4,7 @@ import {withStyles, Typography, Paper, Divider, List, ListItem, ListItemText, Li
 import {bindActionCreators} from "redux";
 import {fetchCommit} from "../../actions";
 import {connect} from "react-redux";
+import Helmet from "react-helmet/es/Helmet";
 
 const styles = theme => ({});
 

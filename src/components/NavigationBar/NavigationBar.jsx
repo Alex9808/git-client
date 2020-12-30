@@ -41,7 +41,7 @@ function NavigationBar(props) {
                 <Typography style={{textTransform: 'capitalize'}} variant={"h5"} componet={"h1"} className={classes.appTitle}>
                     {props.repoName}
                 </Typography>
-                <Typography style={{marginLeft: 5}} variant={"subtitle2"}>{` ${title}`}</Typography>
+                <Typography style={{marginLeft: 8}} variant={"subtitle2"}>{`${title}`}</Typography>
                 <div style={{flexGrow: 1}}/>
 
                 <IconButton onClick={handleClick} color={"inherit"}>

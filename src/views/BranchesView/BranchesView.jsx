@@ -6,6 +6,7 @@ import {BranchIcon} from "../../components";
 import {bindActionCreators} from "redux";
 import {fetchBranches} from "../../actions";
 import {connect} from "react-redux";
+import {Helmet} from "react-helmet/es/Helmet";
 
 const styles = theme => ({});
 
@@ -16,13 +17,15 @@ class BranchesView extends Component {
     }
 
     fetchBranches = () => {
-        this.state.fetchBranches();
+        this.props.fetchBranches();
     }
     render() {
-        const {classes} = this.props;
-        const {branches} = this.state;
+        const {classes, branches} = this.props;
         return (
             <>
+                <Helmet>
+                    <title>Branches</title>
+                </Helmet>
                 <Grid container spacing={2}>
                     {branches.map((branch) => (
                         <Grid key={branch.ref_name} item md={3}>
