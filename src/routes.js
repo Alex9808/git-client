@@ -1,5 +1,5 @@
 import {AppLayout} from "./layouts";
-import {RepoView, NewRepoView, BranchesView} from './views';
+import {RepoView, NewRepoView, BranchesView, BranchView} from './views';
 const defaultRoutes = [
     {
         path: '/repo',
@@ -8,6 +8,10 @@ const defaultRoutes = [
     {
         path: '/branches',
         component: BranchesView
+    },
+    {
+      path: '/branch',
+      component: BranchView
     },
 
 ];
