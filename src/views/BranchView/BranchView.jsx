@@ -9,29 +9,15 @@ const styles = theme => ({});
 
 class BranchView extends Component {
 
-    state = {
-        commits: [],
-        branchName: '',
-    }
-
     componentDidMount() {
-        this.loadBranch();
+
     }
 
     loadBranch = () => {
-        const {search} = this.props.location;
-
-        fetchResource(`/api/commits${search}`, 'GET', null, (error, body) => {
-            console.log(body);
-            if (!error)
-                this.setState({commits: body.commits, branchName: body.name});
-        });
     }
 
     render() {
-        const {classes} = this.props;
-        const {commits, branchName} = this.state;
-        // console.log(this.props);
+        const {classes, commits, branchName} = this.props;
         return (
             <>
                 <Helmet>
@@ -44,18 +30,15 @@ class BranchView extends Component {
                     </Typography>
                     <Divider/>
                     <List>
-                        {commits.map(commit => {
-                            let date = new Date(commit.date);
-                            date = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
-                            return (
+                        {commits.map(commit => (
                                 <ListItem component={Link} to={`/commit/${commit.commit}`} key={commit.commit} button>
                                     <ListItemText primary={<>{commit.message} <Typography
                                         variant={"caption"}>by {commit.author.name} ({commit.author.email})</Typography></>}
-                                                  secondary={date}
+                                                  secondary={new Date(commit.date).toLocaleString()}
                                     />
                                 </ListItem>
                             )
-                        })}
+                        )}
                     </List>
                 </Paper>
             </>
