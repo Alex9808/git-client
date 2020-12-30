@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import {withStyles, Typography, Grid, Card, CardActionArea, CardMedia, CardContent} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {BranchIcon} from "../../components";
+import {bindActionCreators} from "redux";
+import {fetchBranches} from "../../actions";
+import {connect} from "react-redux";
 
 const styles = theme => ({});
 
@@ -44,6 +47,14 @@ class BranchesView extends Component {
 
 BranchesView.propTypes = {
     classes: PropTypes.object,
+    branches: PropTypes.array,
+    loading: PropTypes.bool,
+    loaded: PropTypes.bool,
+    error: PropTypes.object
 };
 
-export default withStyles(styles)(BranchesView);
+const mapStateToProps = state => ({
+    ...state.branches
+});
+const mapDispatchToProps = dispatch => bindActionCreators({fetchBranches}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BranchesView));
