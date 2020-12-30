@@ -1,10 +1,15 @@
 import {AppLayout} from "./layouts";
-import {RepoView, NewRepoView} from './views';
+import {RepoView, NewRepoView, BranchesView} from './views';
 const defaultRoutes = [
     {
         path: '/repo',
         component: RepoView
-    }
+    },
+    {
+        path: '/branches',
+        component: BranchesView
+    },
+
 ];
 
 const routes = [
