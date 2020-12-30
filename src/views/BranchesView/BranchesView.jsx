@@ -12,8 +12,12 @@ const styles = theme => ({});
 class BranchesView extends Component {
 
     componentDidMount() {
+        this.fetchBranches();
     }
 
+    fetchBranches = () => {
+        this.state.fetchBranches();
+    }
     render() {
         const {classes} = this.props;
         const {branches} = this.state;

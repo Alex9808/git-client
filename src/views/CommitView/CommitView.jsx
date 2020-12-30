@@ -8,6 +8,16 @@ import {connect} from "react-redux";
 const styles = theme => ({});
 
 class CommitView extends Component {
+
+    componentDidMount() {
+        this.fetchCommit();
+    }
+
+    fetchCommit = () => {
+        let commit = this.props.match.params.commit;
+        this.props.fetchCommit(commit);
+    }
+
     render() {
         const {classes, author, date, message, tree} = this.props;
         return (
