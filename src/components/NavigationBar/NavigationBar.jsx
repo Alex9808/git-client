@@ -10,6 +10,7 @@ import {
     Menu,
     MenuItem, ListItemIcon, ListItemText,
 } from "@material-ui/core";
+import BackIcon from "@material-ui/icons/ArrowBack";
 import {Link} from "react-router-dom";
 import {Helmet} from "react-helmet/es/Helmet";
 
@@ -27,18 +28,22 @@ function NavigationBar(props) {
     const [title, setTitle] = React.useState(document.title);
     const handleClose = () => setAnchorEl(null);
     const handleClick = (evt) => setAnchorEl(evt.currentTarget);
-
-    console.log('call to render');
     return (
-        <AppBar color={"primary"} position={"absolute"}>
+        <AppBar color={"primary"} position={"fixed"}>
             <Helmet onChangeClientState={(newState) => setTitle(newState.title)}/>
             <Toolbar>
+                {props.location.pathname !== '/repo' && (
+                    <IconButton onClick={props.goBack} color={"inherit"}>
+                        <BackIcon/>
+                    </IconButton>
+                )}
                 <Typography variant={"h6"} componet={"h1"} className={classes.appTitle}>
                     GIT HISTORY
                 </Typography>
                 <div style={{flexGrow: 1}}/>
 
-                <Typography style={{textTransform: 'capitalize'}} variant={"h5"} componet={"h1"} className={classes.appTitle}>
+                <Typography style={{textTransform: 'capitalize'}} variant={"h5"} componet={"h1"}
+                            className={classes.appTitle}>
                     {props.repoName}
                 </Typography>
                 <Typography style={{marginLeft: 8}} variant={"subtitle2"}>{`${title}`}</Typography>
@@ -62,7 +67,9 @@ function NavigationBar(props) {
 }
 
 NavigationBar.propTypes = {
-    repoName: PropTypes.string
+    repoName: PropTypes.string,
+    goBack: PropTypes.func,
+    location: PropTypes.object
 };
 
 

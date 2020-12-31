@@ -30,7 +30,7 @@ class AppLayout extends Component {
                 <Helmet>
                     <title>GIT HISTORY</title>
                 </Helmet>
-                <NavigationBar repoName={this.props.repoName}/>
+                <NavigationBar location={this.props.location} goBack={this.props.history.goBack} repoName={this.props.repoName}/>
                 <main className={classes.main}>
                     {renderRoutes(routes)}
                 </main>
