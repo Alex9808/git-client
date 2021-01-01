@@ -19,10 +19,12 @@ const defaultRoutes = [
     },
     {
         path: '/prs',
+        exact: true,
         component: PRListView
     },
     {
         path: '/prs/add',
+        exact: true,
         component: PRCreateView
     }
 ];

@@ -23,8 +23,7 @@ import {red, green, purple} from "@material-ui/core/colors";
 import ClosedIcon from "@material-ui/icons/Close";
 import OpenIcon from "@material-ui/icons/Done";
 import AddIcon from "@material-ui/icons/AddOutlined";
-import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
-import {Link} from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 
 const styles = theme => ({
 
@@ -79,24 +78,25 @@ class PRListView extends Component {
 
                     <Grid container spacing={3}>
                         {prs.map((pr, key) => (
-                            <Grid key={key} item md={3}>
+                            <Grid key={key} item md={4}>
                                 <Card>
                                     <CardHeader
                                         avatar={<Avatar>{pr.name.charAt(0).toUpperCase()}</Avatar>}
                                         title={pr.name}
                                         subheader={`${pr.authorName} (${pr.authorEmail})`}
                                         action={<Chip
+                                            size="small"
                                             icon={pr.status === 0 || pr.status === 2 ? <OpenIcon/> : <ClosedIcon/>}
                                             style={{color: '#fff'}}
                                             className={pr.status === 0 ? classes.openState : pr.status === 1 ? classes.closedState : classes.mergedState}
-                                            label={pr.status === 1 ? 'Open' : pr.status === 1 ? 'Closed' : 'Merged'}
+                                            label={pr.status === 0 ? 'Open' : pr.status === 1 ? 'Closed' : 'Merged'}
+                                            onClick={pr.status !== 2 ? this.updatePrStatus(pr.id, pr.status) : null}
+                                            clickable={pr.status !== 2}
                                         />}
-                                        color={"inherit"}
-                                        onClick={pr.status !== 2 ? this.updatePrStatus(pr.id, pr.status) : null}
                                     />
                                     <CardContent>
                                         <Typography variant={"subtitle2"} gutterBottom>
-                                            {pr.baseBranchName} a {pr.compareBranchName}
+                                            {pr.base_branch} a {pr.compare_branch}
                                         </Typography>
 
                                         <Typography variant={"caption"} paragraph>
@@ -113,7 +113,7 @@ class PRListView extends Component {
                                         )}
                                     </CardContent>
                                     <CardActions>
-                                        {pr.status === 2 && (
+                                        {pr.status === 0 && (
                                             <Button onClick={this.mergePr(pr.id)} variant={"contained"}
                                                     color={"inherit"}
                                                     className={classes.mergedState}>
@@ -124,13 +124,13 @@ class PRListView extends Component {
                                 </Card>
                             </Grid>
                         ))}
-                        <Grid item md={2}>
+                        <Grid item container justyfy="center" alignItems="center" md={2}>
                             <Card>
-                                <CardActions component={Link} to={'/prs/add'}>
+                                <CardActionArea component={RouterLink} to={'/prs/add'}>
                                     <CardMedia>
                                         <AddIcon color={"primary"} style={{fontSize: '100pt'}}/>
                                     </CardMedia>
-                                </CardActions>
+                                </CardActionArea>
                             </Card>
                         </Grid>
                     </Grid>

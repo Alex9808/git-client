@@ -20,7 +20,8 @@ export const createPr = (data) => ({
     type: CREATE_PR,
     request: {
         op: 'post',
-        path: '/api/prs'
+        path: '/api/prs',
+        data,
     }
 });
 

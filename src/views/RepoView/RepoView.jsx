@@ -32,7 +32,7 @@ class RepoView extends Component {
 
                     <Divider/>
 
-                    <div style={{display: flex}}>
+                    <div style={{display: 'flex'}}>
                         <Card style={{width: 260, marginTop: 16}}>
                             <CardActionArea component={RouterLink} to={'/branches'}>
                                 <CardMedia style={{textAlign: 'center'}}>

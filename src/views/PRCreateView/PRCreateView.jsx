@@ -47,6 +47,10 @@ class PRCreateView extends Component {
         to: '',
     }
 
+    componentDidMount() {
+        this.props.fetchBranches();
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.createState.loading && this.props.createState.loaded) {
             this.setState({mustRedirect: true, to: '/prs'});
@@ -61,6 +65,7 @@ class PRCreateView extends Component {
         this.setState({[target]: evt.target.value});
     }
     createPr = evt => {
+        console.log("Create PR");
         evt.preventDefault();
         let data = {};
         const {
@@ -80,8 +85,8 @@ class PRCreateView extends Component {
         data['compare_branch'] = compareBranch;
         data['status'] = status;
         if (!useDefaultAuthor) {
-            data['authorName'] = authorName;
-            data['authorEmail'] = authorEmail;
+            data['author']['authorName'] = authorName;
+            data['author']['authorEmail'] = authorEmail;
         }
 
         this.props.createPr(data);
@@ -130,7 +135,7 @@ class PRCreateView extends Component {
                                     fullWidth
                                     type="text"
                                     multiline
-                                    rows={6}
+                                    rows={4}
                                     value={description}
                                     onChange={this.onChange('description')}
                                 />
@@ -143,50 +148,52 @@ class PRCreateView extends Component {
                                         <MenuItem value="" disabled>Select base branch</MenuItem>
                                         {branches.map((branch, key) => (
                                             <MenuItem disabled={branch.ref_name === compareBranch} key={key}
-                                                      value={branch.ref_name}>{branch.name}</MenuItem>
+                                                      value={branch.name}>{branch.name}</MenuItem>
                                         ))}
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item md={2}>
+                            <Grid container item md={2} direction="row" justify="center" alignItems="center">
                                 <Typography align="center" variant="caption">a</Typography>
                             </Grid>
                             <Grid item md={5}>
                                 <FormControl required fullWidth>
                                     <InputLabel id="compare-branch-field-label">Compare Branch</InputLabel>
-                                    <Select variant="outlined" labelId="compare-branch-field-label"
+                                    <Select labelId="compare-branch-field-label"
                                             value={compareBranch} onChange={this.onChange("compareBranch")}>
                                         <MenuItem value="" disabled>Select compare branch</MenuItem>
                                         {branches.map((branch, key) => (
                                             <MenuItem disabled={branch.ref_name === baseBranch} key={key}
-                                                      value={branch.ref_name}>{branch.name}</MenuItem>
+                                                      value={branch.name}>{branch.name}</MenuItem>
                                         ))}
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item={12}>
+                            <Grid item md={12}>
                                 <FormControlLabel
-                                    control={<Switch color={"primary"} onChange={this.onChange("useDefaultAuthor")}
+                                    control={<Switch checked={useDefaultAuthor} color={"primary"} onChange={this.onChange("useDefaultAuthor")}
                                                      value={useDefaultAuthor}/>}
                                     label="Usar Autor por defecto del repositorio"/>
                             </Grid>
                             {!useDefaultAuthor && (
                                 <>
-                                    <Grid item md={12}>
+                                    <Grid item md={6}>
                                         <TextField
                                             label="Nombre del Autor"
                                             variant="outlined"
                                             required
+                                            fullWidth
                                             type="text"
                                             value={authorName}
                                             onChange={this.onChange("authorName")}
                                         />
                                     </Grid>
-                                    <Grid item md={12}>
+                                    <Grid item md={6}>
                                         <TextField
                                             label="Email del Autor"
                                             variant="outlined"
                                             required
+                                            fullWidth
                                             type="email"
                                             value={authorEmail}
                                             onChange={this.onChange("authorEmail")}
@@ -197,16 +204,16 @@ class PRCreateView extends Component {
                             <Grid item md={12}>
                                 <FormControl required fullWidth>
                                     <InputLabel id="status-field-label">Status</InputLabel>
-                                    <Select variant="outlined" labelId="status-field-label" value={status}
+                                    <Select labelId="status-field-label" value={status}
                                             onChange={this.onChange("status")}>
                                         <MenuItem value="" disabled>Select status</MenuItem>
                                         <MenuItem value={0}>Open</MenuItem>
-                                        <MenuItem value={1}>Close</MenuItem>
+                                        {/*<MenuItem value={1}>Close</MenuItem>*/}
                                         <MenuItem value={2}>Merged</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item md={12} alignContent="flex-end">
+                            <Grid item container md={12} justify="flex-end">
                                 <Button variant="contained" color="primary" type="submit">
                                     Crear Pull Request
                                 </Button>
