@@ -1,5 +1,5 @@
 import {AppLayout} from "./layouts";
-import {RepoView, NewRepoView, BranchesView, BranchView, CommitView} from './views';
+import {RepoView, NewRepoView, BranchesView, BranchView, CommitView, PRListView} from './views';
 const defaultRoutes = [
     {
         path: '/repo',
@@ -17,6 +17,10 @@ const defaultRoutes = [
         path: '/commit/:commit',
         component: CommitView
     },
+    {
+        path: '/prs',
+        component: PRListView
+    }
 
 ];
 

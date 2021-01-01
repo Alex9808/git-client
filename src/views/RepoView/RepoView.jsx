@@ -32,22 +32,38 @@ class RepoView extends Component {
 
                     <Divider/>
 
-                    <Card style={{width: 260, marginTop: 16}}>
-                        <CardActionArea component={RouterLink} to={'/branches'}>
-                            <CardMedia style={{textAlign: 'center'}}>
-                                <BranchIcon style={{fontSize: '100pt'}}/>
-                            </CardMedia>
-                            <CardContent>
-                                <Typography variant={"h6"} gutterBottom>
-                                    Branchs
-                                </Typography>
-                                <Typography variant={"body2"}>
-                                    Ver todas las Branchs del Repositorio
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-
+                    <div style={{display: flex}}>
+                        <Card style={{width: 260, marginTop: 16}}>
+                            <CardActionArea component={RouterLink} to={'/branches'}>
+                                <CardMedia style={{textAlign: 'center'}}>
+                                    <BranchIcon style={{fontSize: '100pt'}}/>
+                                </CardMedia>
+                                <CardContent>
+                                    <Typography variant={"h6"} gutterBottom>
+                                        Branchs
+                                    </Typography>
+                                    <Typography variant={"body2"}>
+                                        Ver todas las Branchs del Repositorio
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                        <Card style={{width: 260, marginTop: 16, marginLeft: 24}}>
+                            <CardActionArea component={RouterLink} to={'/prs'}>
+                                <CardMedia style={{textAlign: 'center'}}>
+                                    <BranchIcon style={{fontSize: '100pt'}}/>
+                                </CardMedia>
+                                <CardContent>
+                                    <Typography variant={"h6"} gutterBottom>
+                                        Pull Requests
+                                    </Typography>
+                                    <Typography variant={"body2"}>
+                                        Ver y gestionar todas las Pull Requests del Repositorio
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    </div>
                 </Paper>
             </>
         )

@@ -9,6 +9,8 @@ import {
     CardHeader,
     CardContent,
     CardActions,
+    CardActionArea,
+    CardMedia,
     Button,
     Chip,
     Avatar
@@ -20,7 +22,9 @@ import Helmet from "react-helmet/es/Helmet";
 import {red, green, purple} from "@material-ui/core/colors";
 import ClosedIcon from "@material-ui/icons/Close";
 import OpenIcon from "@material-ui/icons/Done";
+import AddIcon from "@material-ui/icons/AddOutlined";
 import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
+import {Link} from "react-router-dom";
 
 const styles = theme => ({
 
@@ -40,6 +44,18 @@ class PRListView extends Component {
 
     componentDidMount() {
         this.props.listPrs();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.mergeState.loading && this.props.mergeState.loaded && !this.props.mergeState.loading && !this.props.listState.loading){
+            this.props.listPrs();
+        }
+        if(prevProps.updateState.loading && this.props.updateState.loaded && !this.props.updateState.loading && !this.props.listState.loading){
+            this.props.listPrs();
+        }
+        if((prevProps.mergeState.loading || prevProps.updateState.loading) && (this.props.mergeState.error || this.props.updateState.error) && !this.props.listStateloading){
+            //Show error on Update PR Status or on Merge PR
+        }
     }
 
     updatePrStatus = (prId, prStatus) => () => {
@@ -108,6 +124,15 @@ class PRListView extends Component {
                                 </Card>
                             </Grid>
                         ))}
+                        <Grid item md={2}>
+                            <Card>
+                                <CardActions component={Link} to={'/prs/add'}>
+                                    <CardMedia>
+                                        <AddIcon color={"primary"} style={{fontSize: '100pt'}}/>
+                                    </CardMedia>
+                                </CardActions>
+                            </Card>
+                        </Grid>
                     </Grid>
                 </Paper>
             </>

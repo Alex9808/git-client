@@ -3,10 +3,12 @@ import RepoView from "./RepoView/RepoView";
 import BranchesView from "./BranchesView/BranchesView";
 import BranchView from "./BranchView/BranchView";
 import CommitView from "./CommitView/CommitView";
+import PRListView from "./PRListView/PRListView";
 export {
     BranchView,
     BranchesView,
     CommitView,
     RepoView,
     NewRepoView,
+    PRListView
 }
