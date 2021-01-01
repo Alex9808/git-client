@@ -154,7 +154,7 @@ class PRCreateView extends Component {
                                 </FormControl>
                             </Grid>
                             <Grid container item md={2} direction="row" justify="center" alignItems="center">
-                                <Typography align="center" variant="caption">a</Typography>
+                                <Typography align="center" variant="caption">de</Typography>
                             </Grid>
                             <Grid item md={5}>
                                 <FormControl required fullWidth>

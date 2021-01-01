@@ -96,7 +96,7 @@ class PRListView extends Component {
                                     />
                                     <CardContent>
                                         <Typography variant={"subtitle2"} gutterBottom>
-                                            {pr.base_branch} a {pr.compare_branch}
+                                            {pr.compare_branch} a {pr.base_branch}
                                         </Typography>
 
                                         <Typography variant={"caption"} paragraph>
