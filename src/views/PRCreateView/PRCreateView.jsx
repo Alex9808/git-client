@@ -15,6 +15,10 @@ import {
     Button,
 } from "@material-ui/core";
 import {Helmet} from "react-helmet/es/Helmet";
+import {bindActionCreators} from "redux";
+import {fetchBranches, createPr} from "../../actions";
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 const styles = theme => ({
     mainFrame: {
@@ -37,18 +41,28 @@ class PRCreateView extends Component {
         status: 0,
         useDefaultAuthor: true,
         authorName: '',
-        authorEmail: ''
+        authorEmail: '',
+
+        mustRedirect: false,
+        to: '',
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.createState.loading && this.props.createState.loaded) {
+            this.setState({mustRedirect: true, to: '/prs'});
+        }
+        if (prevProps.createState.loading && this.props.createState.error) {
+            // Handle Error Message
+        }
+    }
+
     onChange = target => evt => {
-        if(target === 'useDefaultAuthor') return this.setState({[target]: evt.target.checked })
+        if (target === 'useDefaultAuthor') return this.setState({[target]: evt.target.checked})
         this.setState({[target]: evt.target.value});
     }
     createPr = evt => {
         evt.preventDefault();
-
-    }
-    render() {
-        const {classes, branches} = this.props;
+        let data = {};
         const {
             name,
             description,
@@ -59,6 +73,34 @@ class PRCreateView extends Component {
             authorName,
             authorEmail
         } = this.state;
+
+        data['name'] = name;
+        data['description'] = description;
+        data['base_branch'] = baseBranch;
+        data['compare_branch'] = compareBranch;
+        data['status'] = status;
+        if (!useDefaultAuthor) {
+            data['authorName'] = authorName;
+            data['authorEmail'] = authorEmail;
+        }
+
+        this.props.createPr(data);
+    }
+
+    render() {
+        const {classes, branches} = this.props;
+        const {
+            name,
+            description,
+            baseBranch,
+            compareBranch,
+            status,
+            useDefaultAuthor,
+            authorName,
+            authorEmail,
+            mustRedirect, to
+        } = this.state;
+        if(mustRedirect) return <Redirect to={to} />
         return (
             <>
                 <Paper className={classes.mainFrame}>
@@ -182,4 +224,11 @@ PRCreateView.propTypes = {
     branches: PropTypes.array,
 };
 
-export default withStyles(styles)(PRCreateView);
+const mapStateToProps = state => ({
+    branches: state.branches.branches,
+    createState: state.prs.create
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({fetchBranches, createPr}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PRCreateView));
