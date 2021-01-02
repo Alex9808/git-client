@@ -45,7 +45,7 @@ class AppLayout extends Component {
                 <NavigationBar location={this.props.location} goBack={this.props.history.goBack}
                                repoName={this.props.repoName}/>
                 <main className={classes.main}>
-                    {renderRoutes(routes)}
+                    {renderRoutes(routes, {showMessage: this.showSnack})}
                 </main>
 
                 <MuiAlert onClose={this.hideSnack} type={this.state.snackType} message={this.state.snackMsg}

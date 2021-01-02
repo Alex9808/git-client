@@ -13,6 +13,7 @@ import {
     MenuItem,
     FormControlLabel,
     Button,
+    LinearProgress,
 } from "@material-ui/core";
 import {Helmet} from "react-helmet/es/Helmet";
 import {bindActionCreators} from "redux";
@@ -53,10 +54,12 @@ class PRCreateView extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.createState.loading && this.props.createState.loaded) {
+            this.props.showMessage("Pull Request Creada con exito", "success");
             this.setState({mustRedirect: true, to: '/prs'});
         }
         if (prevProps.createState.loading && this.props.createState.error) {
             // Handle Error Message
+            this.props.showMessage("Ocurrio un error al crear el Pull Request", "error")
         }
     }
 
@@ -93,7 +96,8 @@ class PRCreateView extends Component {
     }
 
     render() {
-        const {classes, branches} = this.props;
+        const {classes, branches, createState} = this.props;
+        const {loading} = createState;
         const {
             name,
             description,
@@ -148,7 +152,7 @@ class PRCreateView extends Component {
                                             value={compareBranch} onChange={this.onChange("compareBranch")}>
                                         <MenuItem value="" disabled>Select compare branch</MenuItem>
                                         {branches.map((branch, key) => (
-                                            <MenuItem disabled={branch.ref_name === baseBranch} key={key}
+                                            <MenuItem disabled={branch.name === baseBranch} key={key}
                                                       value={branch.name}>{branch.name}</MenuItem>
                                         ))}
                                     </Select>
@@ -164,7 +168,7 @@ class PRCreateView extends Component {
                                             onChange={this.onChange("baseBranch")}>
                                         <MenuItem value="" disabled>Select base branch</MenuItem>
                                         {branches.map((branch, key) => (
-                                            <MenuItem disabled={branch.ref_name === compareBranch} key={key}
+                                            <MenuItem disabled={branch.name === compareBranch} key={key}
                                                       value={branch.name}>{branch.name}</MenuItem>
                                         ))}
                                     </Select>
@@ -216,9 +220,14 @@ class PRCreateView extends Component {
                                 </FormControl>
                             </Grid>
                             <Grid item container md={12} justify="flex-end">
-                                <Button variant="contained" color="primary" type="submit">
+                                <Button disabled={loading} variant="contained" color="primary" type="submit">
                                     Crear Pull Request
                                 </Button>
+                            </Grid>
+                            <Grid item md={12}>
+                                {loading && (
+                                    <LinearProgress variant="indeterminate"/>
+                                )}
                             </Grid>
                         </Grid>
                     </form>
@@ -231,6 +240,7 @@ class PRCreateView extends Component {
 PRCreateView.propTypes = {
     classes: PropTypes.object,
     branches: PropTypes.array,
+    showMessage: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

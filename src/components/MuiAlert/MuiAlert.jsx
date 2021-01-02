@@ -4,6 +4,7 @@ import {
     makeStyles,
     Snackbar,
 } from "@material-ui/core";
+import {red, yellow, green} from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
     success: {
@@ -39,7 +40,7 @@ function MuiAlert(props) {
             className = classes.default;
     }
     return (
-        <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'left'}} autoHideDuration={6000} className={className} message={props.message} onClose={props.onClose} open={props.open}/>
+        <Snackbar ContentProps={{className: className}} anchorOrigin={{vertical: 'bottom', horizontal: 'left'}} autoHideDuration={6000} className={className} message={props.message} onClose={props.onClose} open={props.open}/>
     )
 }
 

@@ -54,6 +54,7 @@ class PRListView extends Component {
         }
         if((prevProps.mergeState.loading || prevProps.updateState.loading) && (this.props.mergeState.error || this.props.updateState.error) && !this.props.listStateloading){
             //Show error on Update PR Status or on Merge PR
+            this.props.showMessage("Ocurrio un error", "error");
         }
     }
 
