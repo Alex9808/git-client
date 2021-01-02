@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import * as PropTypes from 'prop-types';
-import {withStyles} from "@material-ui/core";
+import {withStyles, Snackbar} from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert"
 import {NavigationBar} from '../../components';
 import {Helmet} from "react-helmet/es/Helmet";
 import {renderRoutes} from "react-router-config";
@@ -18,8 +19,22 @@ class AppLayout extends Component {
     componentDidMount() {
     }
 
-    state = {};
+    state = {
+        snackMsg: '',
+        showSnack: false,
+        snackType: '',
+    };
 
+    showSnack = (msg, type) => {
+        this.setState({showSnack: true, snackMsg: msg, snackType: type});
+    }
+
+    hideSnack = (evt, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({showSnack: false, snackMsg: '', snackType: ''})
+    }
 
     render() {
         const {classes, route, repoLoaded, repoCloned} = this.props;
@@ -30,7 +45,8 @@ class AppLayout extends Component {
                 <Helmet>
                     <title>GIT HISTORY</title>
                 </Helmet>
-                <NavigationBar location={this.props.location} goBack={this.props.history.goBack} repoName={this.props.repoName}/>
+                <NavigationBar location={this.props.location} goBack={this.props.history.goBack}
+                               repoName={this.props.repoName}/>
                 <main className={classes.main}>
                     {renderRoutes(routes)}
                 </main>
