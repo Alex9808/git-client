@@ -34,9 +34,18 @@ const styles = theme => ({
 
 const defaultRepos = [
     {
-        name: '99minutos-fullstack-interview-test',
+        name: '99minutos/99minutos-fullstack-interview-test',
         url: 'https://github.com/99minutos/99minutos-fullstack-interview-test.git'
+    },
+    {
+        name: 'Alex9808/git-client',
+        url: 'https://github.com/Alex9808/git-client.git'
+    },
+    {
+        name: 'Alex9808/99minutos-fullstack-interview-test',
+        url: 'https://github.com/Alex9808/99minutos-fullstack-interview-test.git'
     }
+
 ];
 
 class NewRepoView extends Component {
@@ -44,6 +53,7 @@ class NewRepoView extends Component {
     state = {
         url: ''
     }
+
     componentDidMount() {
         this.props.fetchRepo();
     }
