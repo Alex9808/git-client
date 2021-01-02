@@ -54,7 +54,7 @@ function NavigationBar(props) {
                 </IconButton>
 
                 <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
-                    <MenuItem>
+                    <MenuItem onClick={props.deleteRepo}>
                         <ListItemIcon>
                             <Icon>exit_to_app</Icon>
                         </ListItemIcon>
@@ -69,7 +69,8 @@ function NavigationBar(props) {
 NavigationBar.propTypes = {
     repoName: PropTypes.string,
     goBack: PropTypes.func,
-    location: PropTypes.object
+    location: PropTypes.object,
+    deleteRepo: PropTypes.func
 };
 
 

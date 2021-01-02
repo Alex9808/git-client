@@ -1,4 +1,4 @@
-import {FETCH_REPO, CLONE_REPO} from "../constants/ActionTypes";
+import {FETCH_REPO, CLONE_REPO, DELETE_REPO} from "../constants/ActionTypes";
 
 export const fetchRepo = () => ({
     type: FETCH_REPO,
@@ -15,4 +15,12 @@ export const cloneRepo = (url) => ({
         path: '/api/repo/clone',
         data: {repo_url: url}
     }
+});
+
+export const deleteRepo = () => ({
+   type: DELETE_REPO,
+   request: {
+       op: 'del',
+       path: '/api/repo'
+   }
 });
