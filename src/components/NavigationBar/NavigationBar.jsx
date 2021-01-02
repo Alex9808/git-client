@@ -52,15 +52,15 @@ function NavigationBar(props) {
                 <IconButton onClick={handleClick} color={"inherit"}>
                     <Icon>more_vert</Icon>
                 </IconButton>
-
-                <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
+                {/*Not Supported*/}
+                {/*<Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
                     <MenuItem onClick={props.deleteRepo}>
                         <ListItemIcon>
                             <Icon>exit_to_app</Icon>
                         </ListItemIcon>
                         <ListItemText primary={"Salir"}/>
                     </MenuItem>
-                </Menu>
+                </Menu>*/}
             </Toolbar>
         </AppBar>
     )

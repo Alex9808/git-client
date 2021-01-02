@@ -21,9 +21,9 @@ class AppLayout extends Component {
     componentDidMount() {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.repoDeleted.loading && this.props.repoDeleted.loaded){
+        /*if(prevProps.repoDeleted.loading && this.props.repoDeleted.loaded){
             this.setState({redirect: true, to: '/'});
-        }
+        }*/
     }
 
     state = {
@@ -31,8 +31,8 @@ class AppLayout extends Component {
         showSnack: false,
         snackType: '',
 
-        redirect: false,
-        to: '',
+        /*redirect: false,
+        to: '',*/
     };
 
     showSnack = (msg, type) => {
@@ -47,13 +47,13 @@ class AppLayout extends Component {
         const {classes, route, repoLoaded, repoCloned, repoDeleted} = this.props;
         const {routes} = route;
         if ((!repoLoaded || repoCloned) && (!repoCloned || repoLoaded)) return <Redirect to={"/"}/>
-        if(this.state.redirect) return <Redirect to={this.state.to}/>
+        // if(this.state.redirect) return <Redirect to={this.state.to}/>
         return (
             <React.Fragment>
                 <Helmet>
                     <title>GIT HISTORY</title>
                 </Helmet>
-                <NavigationBar deleteRepo={this.props.deleteRepo} location={this.props.location} goBack={this.props.history.goBack}
+                <NavigationBar location={this.props.location} goBack={this.props.history.goBack}
                                repoName={this.props.repoName}/>
                 <main className={classes.main}>
                     {renderRoutes(routes, {showMessage: this.showSnack})}
@@ -73,7 +73,7 @@ AppLayout.propTypes = {
     repoLoaded: PropTypes.bool,
     repoCloned: PropTypes.bool,
     repoDeleted: PropTypes.object,
-    deleteRepo: PropTypes.func,
+    // deleteRepo: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
     repoUrl: state.repo.url,
     repoLoaded: state.repo.fetch.loaded,
     repoCloned: state.repo.clone.loaded,
-    repoDeleted: state.repo.delete,
+    // repoDeleted: state.repo.delete,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({deleteRepo}, dispatch);
