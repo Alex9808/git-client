@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import * as PropTypes from 'prop-types';
 import {withStyles, Snackbar} from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert"
+import {MuiAlert} from "../../components";
 import {NavigationBar} from '../../components';
 import {Helmet} from "react-helmet/es/Helmet";
 import {renderRoutes} from "react-router-config";
@@ -29,10 +29,7 @@ class AppLayout extends Component {
         this.setState({showSnack: true, snackMsg: msg, snackType: type});
     }
 
-    hideSnack = (evt, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+    hideSnack = () => {
         this.setState({showSnack: false, snackMsg: '', snackType: ''})
     }
 
@@ -50,6 +47,9 @@ class AppLayout extends Component {
                 <main className={classes.main}>
                     {renderRoutes(routes)}
                 </main>
+
+                <MuiAlert onClose={this.hideSnack} type={this.state.snackType} message={this.state.snackMsg}
+                          open={this.state.showSnack}/>
             </React.Fragment>
         )
     }

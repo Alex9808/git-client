@@ -39,7 +39,7 @@ function MuiAlert(props) {
             className = classes.default;
     }
     return (
-        <Snackbar className={className} message={props.message} onClose={props.onClose} open={props.open}/>
+        <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'left'}} autoHideDuration={6000} className={className} message={props.message} onClose={props.onClose} open={props.open}/>
     )
 }
 
