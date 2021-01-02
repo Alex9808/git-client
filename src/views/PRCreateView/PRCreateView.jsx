@@ -105,7 +105,7 @@ class PRCreateView extends Component {
             authorEmail,
             mustRedirect, to
         } = this.state;
-        if(mustRedirect) return <Redirect to={to} />
+        if (mustRedirect) return <Redirect to={to}/>
         return (
             <>
                 <Paper className={classes.mainFrame}>
@@ -140,25 +140,10 @@ class PRCreateView extends Component {
                                     onChange={this.onChange('description')}
                                 />
                             </Grid>
+
                             <Grid item md={5}>
                                 <FormControl required fullWidth>
-                                    <InputLabel id="base-branch-field-label">Base Branch</InputLabel>
-                                    <Select labelId="base-branch-field-label" value={baseBranch}
-                                            onChange={this.onChange("baseBranch")}>
-                                        <MenuItem value="" disabled>Select base branch</MenuItem>
-                                        {branches.map((branch, key) => (
-                                            <MenuItem disabled={branch.ref_name === compareBranch} key={key}
-                                                      value={branch.name}>{branch.name}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid container item md={2} direction="row" justify="center" alignItems="center">
-                                <Typography align="center" variant="caption">de</Typography>
-                            </Grid>
-                            <Grid item md={5}>
-                                <FormControl required fullWidth>
-                                    <InputLabel id="compare-branch-field-label">Compare Branch</InputLabel>
+                                    <InputLabel id="compare-branch-field-label">Origen</InputLabel>
                                     <Select labelId="compare-branch-field-label"
                                             value={compareBranch} onChange={this.onChange("compareBranch")}>
                                         <MenuItem value="" disabled>Select compare branch</MenuItem>
@@ -169,9 +154,26 @@ class PRCreateView extends Component {
                                     </Select>
                                 </FormControl>
                             </Grid>
+                            <Grid container item md={2} direction="row" justify="center" alignItems="center">
+                                <Typography align="center" variant="caption">de</Typography>
+                            </Grid>
+                            <Grid item md={5}>
+                                <FormControl required fullWidth>
+                                    <InputLabel id="base-branch-field-label">Destino</InputLabel>
+                                    <Select labelId="base-branch-field-label" value={baseBranch}
+                                            onChange={this.onChange("baseBranch")}>
+                                        <MenuItem value="" disabled>Select base branch</MenuItem>
+                                        {branches.map((branch, key) => (
+                                            <MenuItem disabled={branch.ref_name === compareBranch} key={key}
+                                                      value={branch.name}>{branch.name}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
                             <Grid item md={12}>
                                 <FormControlLabel
-                                    control={<Switch checked={useDefaultAuthor} color={"primary"} onChange={this.onChange("useDefaultAuthor")}
+                                    control={<Switch checked={useDefaultAuthor} color={"primary"}
+                                                     onChange={this.onChange("useDefaultAuthor")}
                                                      value={useDefaultAuthor}/>}
                                     label="Usar Autor por defecto del repositorio"/>
                             </Grid>
